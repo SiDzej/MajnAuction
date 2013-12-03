@@ -1,0 +1,9 @@
+name: MajnAuction
+main: eu.sidzej.ma.MajnAuction
+version: 0.1
+commands:
+  test:
+    description: Display test text
+    usage: "Hello world."
+  ma:
+    description: test

@@ -1,0 +1,36 @@
+hugeexplosion
+largeexplode
+fireworksSpark -- velky zvezdicky
+bubble
+suspended
+depthsuspend
+townaura -- cerne pixely
+crit -- hvezdicky jak pri bouchnuti
+magicCrit -- potion hit
+smoke
+mobSpell -- cerne swirly
+mobSpellAmbient -- polopruhledne swirliky
+spell -- swirly
+instantSpell  -- hvezdicky
+witchMagic -- fialove hvezdicky
+note
+portal
+enchantmenttable
+explode
+flame
+lava
+footstep
+splash
+largesmoke
+cloud
+reddust
+snowballpoof
+dripWater
+dripLava
+snowshovel
+slime
+heart
+angryVillager
+happyVillager
+iconcrack_*
+tilecrack_*_*
