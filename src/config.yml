@@ -1,1 +1,16 @@
-test
+################################################################
+#
+# MajnAuction plugin config file
+#
+################################################################
+
+debug: false
+custom-sign-text: '[MajnAuction]'
+
+mysql:
+  host: 'localhost'
+  port: '3306'
+  database: 'MajnAuction'
+  user: 'ma'
+  pass: 'wr41th5'
+

@@ -1,40 +1,41 @@
 package eu.sidzej.ma;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
+import eu.sidzej.ma.db.MySQL;
 import eu.sidzej.ma.listeners.SignListener;
 import eu.sidzej.ma.ulits.ParticleEffect;
 
 public class MajnAuction extends JavaPlugin {
 	
-	public String log_prefix;
+	private String log_prefix;
+	private boolean debugEnabled = false;
 	static final Logger log = Logger.getLogger("Minecraft");
 	private File pluginFolder;
     private File langFile;
     private File configFile;
     private CommandHandler commandHandler;
     public ParticleEffect particleEffect;
+    public MySQL db;
 	
 	public void onEnable(){
+		this.log_prefix = "[MajnAuction]";
+		
 		getServer().getPluginManager().registerEvents(new SignListener(this), this);
-		this.log_prefix = ChatColor.translateAlternateColorCodes('&',
-                "&5-----[  &fPurpleIRC&5 - &f" + getServer().getPluginManager()
-                .getPlugin("PurpleIRC").getDescription().getVersion() + "&5 ]-----");
+		pluginFolder = getDataFolder();
+        configFile = new File(pluginFolder, "config.yml");
+        createConfig();
+        getConfig().options().copyDefaults(true);
+        saveConfig();
+        loadConfig();
 		
-		logInfo("MajnAuction enabled.");
-		
+        logDebug("Debug enabled!"); // log only when enabled in config :)
+        
 		commandHandler = new CommandHandler(this);
 		getCommand("ma").setExecutor(commandHandler);
 		
@@ -47,31 +48,43 @@ public class MajnAuction extends JavaPlugin {
 	}
 	
 	
-	
-	/**
-    *
-    * @param message
-    */
+
    public void logInfo(String message) {
        log.log(Level.INFO, String.format("%s %s", log_prefix, message));
    }
 
-   /**
-    *
-    * @param message
-    */
    public void logError(String message) {
        log.log(Level.SEVERE, String.format("%s %s", log_prefix, message));
    }
 
-   /**
-    *
-    * @param message
-    *
    public void logDebug(String message) {
        if (debugEnabled) {
            log.log(Level.INFO, String.format("%s [DEBUG] %s", log_prefix, message));
        }
-   }*/
+   }
+   
+   // load config from file
+   private void loadConfig() {
+       debugEnabled = getConfig().getBoolean("debug");
+   }
+   
+   // create config folder and config file
+   private void createConfig() {
+       if (!pluginFolder.exists()) {
+           try {
+               pluginFolder.mkdir();
+           } catch (Exception e) {
+               logError(e.getMessage());
+           }
+       }
+
+       if (!configFile.exists()) {
+           try {
+               configFile.createNewFile();
+           } catch (IOException e) {
+               logError(e.getMessage());
+           }
+       }
+   }
 
 }

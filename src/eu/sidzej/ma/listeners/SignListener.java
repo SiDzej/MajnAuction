@@ -82,7 +82,7 @@ public class SignListener implements Listener{
             
             plugin.particleEffect.run(l);
             
-            event.getPlayer().openInventory(Bukkit.getServer().createInventory(null, 18, "MajnAuction"));
+            event.getPlayer().openInventory(Bukkit.getServer().createInventory(null, 70, "MajnAuction"));
             
 	}
 	
