@@ -26,8 +26,8 @@ import eu.sidzej.ma.MajnAuction;
 public class SignListener implements Listener{
 	
 	private MajnAuction plugin;
-	private String[] labels = {"[MajnAuction]", "[MA]"};
-	
+	private String[] labels = {"[MajnAuction]", "[MA]", "ma"};
+		
 	public SignListener (MajnAuction plugin){
 		this.plugin = plugin;		
 	}
@@ -37,11 +37,11 @@ public class SignListener implements Listener{
 		Player p = e.getPlayer();
 		if ( p == null)
 			return;
+		
 		String[] l = e.getLines();
 		
 		for (int i = 0; i < labels.length+1; i++){
 			if (i == labels.length){
-				e.setCancelled(true);
 				return;
 			}
 			if (l[0].equalsIgnoreCase(labels[i])){
@@ -52,11 +52,13 @@ public class SignListener implements Listener{
 		StringBuilder sb = new StringBuilder(event.getLine(line));
         sb.setCharAt(ic - 1, ChatColor.COLOR_CHAR);
         event.setLine(line, sb.toString());*/
-		e.setLine(0, "["+ChatColor.COLOR_CHAR+"4"+plugin.getName()+ChatColor.COLOR_CHAR+"r]");
+		e.setLine(0, ChatColor.COLOR_CHAR+"4"+plugin.getName());
 		
 		// no permissions
 		if(!p.hasPermission("MajnAuction.placeSign")){
 			e.setCancelled(true);
+			e.getBlock().breakNaturally();
+			e.getPlayer().sendMessage("no permissions");
 			return;
 		}
 		

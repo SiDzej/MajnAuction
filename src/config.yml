@@ -10,7 +10,7 @@ custom-sign-text: '[MajnAuction]'
 mysql:
   host: 'localhost'
   port: '3306'
-  database: 'MajnAuction'
-  user: 'ma'
-  pass: 'wr41th5'
+  database: 'minecraft'
+  user: 'MajnAuction'
+  password: 'wr41th5'
 

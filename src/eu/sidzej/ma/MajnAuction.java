@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import eu.sidzej.ma.db.Database;
 import eu.sidzej.ma.db.MySQL;
 import eu.sidzej.ma.listeners.SignListener;
 import eu.sidzej.ma.ulits.ParticleEffect;
@@ -14,14 +15,15 @@ import eu.sidzej.ma.ulits.ParticleEffect;
 public class MajnAuction extends JavaPlugin {
 	
 	private String log_prefix;
-	private boolean debugEnabled = false;
+	public boolean debugEnabled = false;
 	static final Logger log = Logger.getLogger("Minecraft");
 	private File pluginFolder;
     private File langFile;
     private File configFile;
     private CommandHandler commandHandler;
     public ParticleEffect particleEffect;
-    public MySQL db;
+    public Database db;
+    public String host,port,database,pass,user;
 	
 	public void onEnable(){
 		this.log_prefix = "[MajnAuction]";
@@ -31,10 +33,12 @@ public class MajnAuction extends JavaPlugin {
         configFile = new File(pluginFolder, "config.yml");
         createConfig();
         getConfig().options().copyDefaults(true);
-        saveConfig();
-        loadConfig();
+        saveConfig(); loadConfig();
 		
         logDebug("Debug enabled!"); // log only when enabled in config :)
+        
+        db = new Database(this);
+        db.connect(); // connect
         
 		commandHandler = new CommandHandler(this);
 		getCommand("ma").setExecutor(commandHandler);
@@ -66,6 +70,13 @@ public class MajnAuction extends JavaPlugin {
    // load config from file
    private void loadConfig() {
        debugEnabled = getConfig().getBoolean("debug");
+       /** DB **/
+       host = getConfig().getString("mysql.host");
+       port = getConfig().getString("mysql.port");
+       database = getConfig().getString("mysql.database");
+       pass = getConfig().getString("mysql.password");
+       user = getConfig().getString("mysql.user");
+       
    }
    
    // create config folder and config file
