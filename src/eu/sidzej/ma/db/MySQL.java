@@ -48,7 +48,7 @@ public class MySQL {
         this.database = database;
         this.user = username;
         this.password = password;
-        this.connection = null;
+        this.connection = openConnection();
     }
 
     public Connection openConnection() {
@@ -83,13 +83,7 @@ public class MySQL {
     }
 
     public ResultSet querySQL(String query) {
-        Connection c = null;
-
-        if (checkConnection()) {
-            c = getConnection();
-        } else {
-            c = openConnection();
-        }
+        Connection c = connection;
 
         Statement s = null;
 
@@ -107,20 +101,12 @@ public class MySQL {
             e.printStackTrace();
         }
 
-        closeConnection();
-
         return ret;
     }
 
     public void updateSQL(String update) {
 
-        Connection c = null;
-
-        if (checkConnection()) {
-            c = getConnection();
-        } else {
-            c = openConnection();
-        }
+        Connection c = connection;
 
         Statement s = null;
 
@@ -130,8 +116,6 @@ public class MySQL {
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
-
-        closeConnection();
 
     }
 }
