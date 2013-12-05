@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.sidzej.ma.db.Database;
@@ -48,6 +49,7 @@ public class MajnAuction extends JavaPlugin {
 	
 	
 	public void onDisable(){
+		db.close();
 		getLogger().info("MajnAuction disabled.");
 	}
 	
@@ -59,6 +61,15 @@ public class MajnAuction extends JavaPlugin {
 
    public void logError(String message) {
        log.log(Level.SEVERE, String.format("%s %s", log_prefix, message));
+   }
+   
+   public void disable(){
+	   Bukkit.getPluginManager().disablePlugin(this);
+   }
+   
+   public void disable(String msg){
+	   logError(msg);
+	   Bukkit.getPluginManager().disablePlugin(this);
    }
 
    public void logDebug(String message) {
