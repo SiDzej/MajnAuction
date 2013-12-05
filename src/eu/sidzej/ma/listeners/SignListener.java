@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,9 +20,10 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.server.ServerCommandEvent;
-import org.bukkit.block.Sign;
+import org.bukkit.material.Sign;
 
 import eu.sidzej.ma.MajnAuction;
+import eu.sidzej.ma.ulits.SignSetHelper;
 
 public class SignListener implements Listener{
 	
@@ -37,14 +39,25 @@ public class SignListener implements Listener{
 		Player p = e.getPlayer();
 		if ( p == null)
 			return;
+		plugin.logInfo("cedule");
+		Block b = e.getBlock();
 		
-		String[] l = e.getLines();
+		if (b.getType() != Material.WALL_SIGN) 
+			return;
+		Sign s = (Sign) b.getState().getData();
+		Block attachedBlock = b.getRelative(s.getAttachedFace());
 		
+		plugin.logInfo("na bloku");
+		if (attachedBlock.getType().compareTo(Material.ENDER_CHEST) != 0)
+			return;	
+		
+		plugin.logInfo("na enderbedne");
+		String line = e.getLine(0);
 		for (int i = 0; i < labels.length+1; i++){
 			if (i == labels.length){
 				return;
 			}
-			if (l[0].equalsIgnoreCase(labels[i])){
+			if (line.equalsIgnoreCase(labels[i])){
 				break;
 			}
 		}
@@ -87,7 +100,7 @@ public class SignListener implements Listener{
             event.getPlayer().openInventory(Bukkit.getServer().createInventory(null, 70, "MajnAuction"));
             
 	}
-	
+	/*
 	@EventHandler(priority = EventPriority.NORMAL)
     public void onBlockBreak(BlockBreakEvent event) {
             Block b = event.getBlock();
@@ -106,5 +119,5 @@ public class SignListener implements Listener{
             }
             
             
-    }
+    }*/
 }
