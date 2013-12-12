@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.sidzej.ma.db.Database;
@@ -44,7 +45,9 @@ public class MajnAuction extends JavaPlugin {
 		commandHandler = new CommandHandler(this);
 		getCommand("ma").setExecutor(commandHandler);
 		
-		particleEffect = new ParticleEffect(this); // create class for effect
+		
+		for (Material c : Material.values())
+		    System.out.println(c);
 	} 
 	
 	

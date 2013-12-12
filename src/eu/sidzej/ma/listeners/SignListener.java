@@ -23,6 +23,7 @@ import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.material.Sign;
 
 import eu.sidzej.ma.MajnAuction;
+import eu.sidzej.ma.ulits.ParticleEffect;
 import eu.sidzej.ma.ulits.SignSetHelper;
 
 public class SignListener implements Listener{
@@ -90,14 +91,15 @@ public class SignListener implements Listener{
             Block block = event.getClickedBlock();
             // not a sign
             if(block == null) return;
+            System.out.println(block.getType());
             if(block.getType() != Material.SIGN_POST && block.getType() != Material.WALL_SIGN) return;
             // it's a sign
             
             Location l = block.getLocation();
             
-            plugin.particleEffect.run(l);
+            ParticleEffect.sendToLocation(ParticleEffect.INSTANT_SPELL, l, 1.0F, 1.0F, 1.0F, 0, 20);
             
-            event.getPlayer().openInventory(Bukkit.getServer().createInventory(null, 70, "MajnAuction"));
+            event.getPlayer().openInventory(Bukkit.getServer().createInventory(null, 90, "MajnAuction"));
             
 	}
 	/*

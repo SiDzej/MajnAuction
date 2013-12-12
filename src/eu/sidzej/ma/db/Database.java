@@ -9,11 +9,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.bind.DatatypeConverter;
-
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import com.google.common.io.CharStreams;
 
@@ -24,6 +24,7 @@ public class Database {
 	private MajnAuction plugin;
 	private MySQL MySQL;
 	private Connection c;
+	private List<String> table_names = Arrays.asList("ma_players","ma_data_values");
 	
 	public Database(MajnAuction plugin){
 		this.plugin = plugin;
@@ -31,6 +32,7 @@ public class Database {
 		MySQL = new MySQL(plugin, plugin.host, plugin.port,
 				plugin.database, plugin.user, plugin.pass);
 		c = null;
+		
 	}
 	
 	
@@ -96,29 +98,22 @@ public class Database {
 		}
 		plugin.logInfo("Connected to database.");
 		
-		//check for tables
-		//TODO kontrolovat vsechny
-		/*public boolean tableExists(String table) {
-ResultSet rs = mysql.querySQL("SHOW TABLES LIKE '" + table + "';");
-if (rs != null) return true;
-return false;
-}*/
-		ResultSet tables = MySQL.querySQL("SHOW TABLES FROM " + plugin.database +
-				" LIKE 'ma_data_values'");
-		try {
-			if (tables.next())
-				return;
-		} catch (SQLException e) {
-			plugin.logError(e.getMessage());
-			plugin.disable("Can't setup database");
-			return;
-		}
-		
-		createMajnAuctionDB();
+		// check if database is complete
+		Iterator<String> iterator = table_names.iterator();
+		while(iterator.hasNext())
+			if(!tableExists(iterator.next())){
+				createMajnAuctionDB();
+				break;
+			}
 	}
 	
 	public void close(){
 		MySQL.closeConnection();
 	}
-
+	
+	private boolean tableExists(String table) {
+		ResultSet rs = MySQL.querySQL("SHOW TABLES LIKE '" + table + "';");
+		if (rs != null) return true;
+		return false;
+		}
 }
