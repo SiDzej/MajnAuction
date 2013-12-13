@@ -33,4 +33,18 @@ CREATE TABLE IF NOT EXISTS `ma_data_values` (
   `name` char(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
   ) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+-- -----------------------------------------------------
+-- auction point table
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ma_auction_points` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` char(32) DEFAULT NULL,
+  `x` INT DEFAULT NOT NULL,
+  `y` INT DEFAULT NOT NULL,
+  `z` INT DEFAULT NOT NULL,
+  PRIMARY KEY (`id`)
+  ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1

@@ -1,30 +1,22 @@
 package eu.sidzej.ma.listeners;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.material.Sign;
 
 import eu.sidzej.ma.MajnAuction;
 import eu.sidzej.ma.ulits.ParticleEffect;
-import eu.sidzej.ma.ulits.SignSetHelper;
 
 public class SignListener implements Listener{
 	
@@ -83,7 +75,7 @@ public class SignListener implements Listener{
 	}
 	
 	
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
             // right click only
             if( event.getAction() != Action.RIGHT_CLICK_BLOCK &&
@@ -91,17 +83,30 @@ public class SignListener implements Listener{
             Block block = event.getClickedBlock();
             // not a sign
             if(block == null) return;
-            System.out.println(block.getType());
-            if(block.getType() != Material.SIGN_POST && block.getType() != Material.WALL_SIGN) return;
-            // it's a sign
+            if(block.getType() != Material.ENDER_CHEST && block.getType() != Material.WALL_SIGN) return;
+            if(event.getPlayer().isSneaking() && event.getPlayer().getItemInHand() != null 
+            		&& event.getPlayer().getItemInHand().getType().equals(Material.AIR))
+            	return;
             
+            if(block.getType() == Material.WALL_SIGN){
+            	block = block.getRelative(((Sign)block.getState().getData()).getAttachedFace());
+            }
+            
+            // it's a sign
+            // 
             Location l = block.getLocation();
             
             ParticleEffect.sendToLocation(ParticleEffect.INSTANT_SPELL, l, 1.0F, 1.0F, 1.0F, 0, 20);
             
-            event.getPlayer().openInventory(Bukkit.getServer().createInventory(null, 90, "MajnAuction"));
+            event.getPlayer().openInventory(Bukkit.getServer().createInventory(null, 54, "MajnAuction"));
+            event.setCancelled(true);
+            event.getPlayer().playSound(l, Sound.WITHER_DEATH, 10, 1);
+            
+         
+            
             
 	}
+	
 	/*
 	@EventHandler(priority = EventPriority.NORMAL)
     public void onBlockBreak(BlockBreakEvent event) {

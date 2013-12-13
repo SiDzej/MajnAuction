@@ -8,8 +8,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import eu.sidzej.ma.MajnAuction;
-
 /**
  * Particle Effects Lib
  * 

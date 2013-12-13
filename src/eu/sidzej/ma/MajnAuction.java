@@ -2,15 +2,15 @@ package eu.sidzej.ma;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.sidzej.ma.db.Database;
-import eu.sidzej.ma.db.MySQL;
 import eu.sidzej.ma.listeners.SignListener;
 import eu.sidzej.ma.ulits.ParticleEffect;
 
@@ -26,6 +26,7 @@ public class MajnAuction extends JavaPlugin {
     public ParticleEffect particleEffect;
     public Database db;
     public String host,port,database,pass,user;
+    public List<AuctionPoint> pointList;
 	
 	public void onEnable(){
 		this.log_prefix = "[MajnAuction]";
@@ -46,8 +47,7 @@ public class MajnAuction extends JavaPlugin {
 		getCommand("ma").setExecutor(commandHandler);
 		
 		
-		for (Material c : Material.values())
-		    System.out.println(c);
+		this.pointList = new ArrayList<AuctionPoint>();
 	} 
 	
 	

@@ -15,6 +15,8 @@ import java.util.List;
 
 import javax.xml.bind.DatatypeConverter;
 
+import org.bukkit.Location;
+
 import com.google.common.io.CharStreams;
 
 import eu.sidzej.ma.MajnAuction;
@@ -24,7 +26,8 @@ public class Database {
 	private MajnAuction plugin;
 	private MySQL MySQL;
 	private Connection c;
-	private List<String> table_names = Arrays.asList("ma_players","ma_data_values");
+	private List<String> table_names = Arrays.asList("ma_players","ma_data_values",
+			"ma_auction_points");
 	
 	public Database(MajnAuction plugin){
 		this.plugin = plugin;
@@ -36,6 +39,17 @@ public class Database {
 	}
 	
 	
+	
+	public void saveAuctionPoint(Location l,String name){
+		if(name.trim().isEmpty())
+			name = "Point " + (plugin.pointList.size() + 1);
+		else
+			name = "Point " + 1;
+		MySQL.updateSQL("INSERT INTO ma_auction_points (name,x,y,z) VALUES ('" + name +
+				"','" + l.getBlockX() + "'," + l.getBlockY() + "'," + l.getBlockZ() + "')");
+		
+		
+	}
 	
 	public boolean setPassword(String p, String s){
 		String password = null;
