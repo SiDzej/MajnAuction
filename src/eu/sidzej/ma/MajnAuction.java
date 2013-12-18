@@ -12,13 +12,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.sidzej.ma.db.Database;
 import eu.sidzej.ma.listeners.SignListener;
+import eu.sidzej.ma.ulits.Log;
 import eu.sidzej.ma.ulits.ParticleEffect;
 
 public class MajnAuction extends JavaPlugin {
 	
-	private static String log_prefix;
-	public boolean debugEnabled = false;
-	static final Logger log = Logger.getLogger("Minecraft");
 	private File pluginFolder;
     private File langFile;
     private File configFile;
@@ -29,7 +27,8 @@ public class MajnAuction extends JavaPlugin {
     public List<AuctionPoint> pointList;
 	
 	public void onEnable(){
-		this.log_prefix = "[MajnAuction]";
+
+		
 		
 		getServer().getPluginManager().registerEvents(new SignListener(this), this);
 		pluginFolder = getDataFolder();
@@ -38,7 +37,7 @@ public class MajnAuction extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig(); loadConfig();
 		
-        logDebug("Debug enabled!"); // log only when enabled in config :)
+        Log.logDebug("Debug enabled!"); // log only when enabled in config :)
         
         db = new Database(this);
         db.connect(); // connect
@@ -56,34 +55,20 @@ public class MajnAuction extends JavaPlugin {
 		getLogger().info("MajnAuction disabled.");
 	}
 	
-	
-
-   public void logInfo(String message) {
-       log.log(Level.INFO, String.format("%s %s", log_prefix, message));
-   }
-
-   public static void logError(String message) {
-       log.log(Level.SEVERE, String.format("%s %s", log_prefix, message));
-   }
-   
    public void disable(){
 	   Bukkit.getPluginManager().disablePlugin(this);
    }
    
    public void disable(String msg){
-	   logError(msg);
+	   Log.logError(msg);
 	   Bukkit.getPluginManager().disablePlugin(this);
    }
 
-   public void logDebug(String message) {
-       if (debugEnabled) {
-           log.log(Level.INFO, String.format("%s [DEBUG] %s", log_prefix, message));
-       }
-   }
+   
    
    // load config from file
    private void loadConfig() {
-       debugEnabled = getConfig().getBoolean("debug");
+       //debugEnabled = getConfig().getBoolean("debug");
        /** DB **/
        host = getConfig().getString("mysql.host");
        port = getConfig().getString("mysql.port");
@@ -99,7 +84,7 @@ public class MajnAuction extends JavaPlugin {
            try {
                pluginFolder.mkdir();
            } catch (Exception e) {
-               logError(e.getMessage());
+               Log.logError(e.getMessage());
            }
        }
 
@@ -107,7 +92,7 @@ public class MajnAuction extends JavaPlugin {
            try {
                configFile.createNewFile();
            } catch (IOException e) {
-               logError(e.getMessage());
+        	   Log.logError(e.getMessage());
            }
        }
    }

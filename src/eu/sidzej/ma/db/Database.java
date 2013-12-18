@@ -20,6 +20,7 @@ import org.bukkit.Location;
 import com.google.common.io.CharStreams;
 
 import eu.sidzej.ma.MajnAuction;
+import eu.sidzej.ma.ulits.Log;
 
 public class Database {
 	
@@ -69,11 +70,11 @@ public class Database {
 		try {
 			if (tmp.next()){
 				MySQL.updateSQL("UPDATE ma_players SET password=\""+password+"\" WHERE nick=\""+p+"\"");
-				plugin.logDebug("Chaning "+p+" password");
+				Log.logDebug("Chaning "+p+" password");
 			}
 			else{
 				MySQL.updateSQL("INSERT INTO ma_players (nick,password) VALUES (\""+p+"\",\""+password+"\")");
-				plugin.logDebug("Creating "+p+" account");
+				Log.logDebug("Creating "+p+" account");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -83,7 +84,7 @@ public class Database {
 	}
 	
 	private void createMajnAuctionDB(){
-		plugin.logInfo("Creating MajnAuctionDB structure...");
+		Log.logInfo("Creating MajnAuctionDB structure...");
         Statement s;
 		try {
 			s = c.createStatement();
@@ -93,11 +94,11 @@ public class Database {
 			}
 			String[] queries = CharStreams.toString(new InputStreamReader(plugin.getResource("CREATE.sql"))).split(";");
 	        for (String query : queries) {
-	            plugin.logInfo("Creating DB table");
+	        	Log.logInfo("Creating DB table");
 	            s.execute(query);
 	        }
 		} catch (SQLException | IOException e) {
-			plugin.logError(e.getMessage());
+			Log.logError(e.getMessage());
 			plugin.disable("Can't create database.");
 		}
 	}
@@ -105,12 +106,12 @@ public class Database {
 	public void connect(){
 		c = MySQL.openConnection();
 		if(c == null){
-			plugin.logError("Can't work without database.");
+			Log.logError("Can't work without database.");
 			plugin.disable();
 			
 			return;
 		}
-		plugin.logInfo("Connected to database.");
+		Log.logInfo("Connected to database.");
 		
 		// check if database is complete
 		Iterator<String> iterator = table_names.iterator();

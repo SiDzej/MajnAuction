@@ -76,7 +76,7 @@ public class ConnectionManager implements Closeable {
                         try {
 							conn.close();
 						} catch (SQLException e) {
-							// TODO Auto-generated catch block
+							MajnAuction.logError("Error while closing connection!");
 							e.printStackTrace();
 						}
                 }
@@ -99,6 +99,7 @@ public class ConnectionManager implements Closeable {
 				try {
 					Thread.sleep(300000);
 				} catch (final InterruptedException e) {
+					MajnAuction.logError("Error in connectionKiller sleeping thread");
 				}
 				KillConnections();
 			}

@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.material.Sign;
 
 import eu.sidzej.ma.MajnAuction;
+import eu.sidzej.ma.ulits.Log;
 import eu.sidzej.ma.ulits.ParticleEffect;
 
 public class SignListener implements Listener{
@@ -32,7 +33,7 @@ public class SignListener implements Listener{
 		Player p = e.getPlayer();
 		if ( p == null)
 			return;
-		plugin.logInfo("cedule");
+		Log.logInfo("cedule");
 		Block b = e.getBlock();
 		
 		if (b.getType() != Material.WALL_SIGN) 
@@ -40,11 +41,11 @@ public class SignListener implements Listener{
 		Sign s = (Sign) b.getState().getData();
 		Block attachedBlock = b.getRelative(s.getAttachedFace());
 		
-		plugin.logInfo("na bloku");
+		Log.logInfo("na bloku");
 		if (attachedBlock.getType().compareTo(Material.ENDER_CHEST) != 0)
 			return;	
 		
-		plugin.logInfo("na enderbedne");
+		Log.logInfo("na enderbedne");
 		String line = e.getLine(0);
 		for (int i = 0; i < labels.length+1; i++){
 			if (i == labels.length){

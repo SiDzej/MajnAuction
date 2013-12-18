@@ -15,6 +15,7 @@ import com.google.common.base.Joiner;
 
 import eu.sidzej.ma.commands.CommandInterface;
 import eu.sidzej.ma.commands.Password;
+import eu.sidzej.ma.ulits.Log;
 
 public class CommandHandler implements CommandExecutor{
 	
@@ -38,7 +39,7 @@ public class CommandHandler implements CommandExecutor{
             sortedCommands.add(s);
         }
         Collections.sort(sortedCommands, Collator.getInstance());
-        plugin.logDebug("Commands enabled: " + Joiner.on(", ").join(sortedCommands));
+        Log.logDebug("Commands enabled: " + Joiner.on(", ").join(sortedCommands));
     }
 
 	@Override
