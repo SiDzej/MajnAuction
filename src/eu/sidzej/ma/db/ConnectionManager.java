@@ -43,7 +43,7 @@ public class ConnectionManager implements Closeable {
 		this.password = password;
 
 		Class.forName("com.mysql.jdbc.Driver");
-		Log.info("Attempting to connecting to database at: " + hostname);
+		Log.info("Connecting to database at: " + hostname);
 		poolsize = 10; // TODO config
 		connections = new Vector<TimedConnection>(poolsize);
 		reaper = new ConnectionKiller();
@@ -56,8 +56,8 @@ public class ConnectionManager implements Closeable {
 	 * @return returns a TimedConnection
 	 * @throws SQLException
 	 */
-	public synchronized TimedConnection getConnection() throws SQLException {
-		TimedConnection conn;
+	public synchronized TimedConnection getConnection() {
+		TimedConnection conn = null;
 		Iterator<TimedConnection> it = connections.iterator();
 		while (it.hasNext()) {
 			conn = it.next();
@@ -69,9 +69,17 @@ public class ConnectionManager implements Closeable {
 				conn.close();
 			}
 		}
-		Log.debug("No available MySQL connections, attempting to create new one");
-		conn = (TimedConnection) DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":"
-				+ this.port + "/" + this.database, this.user, this.password);
+		Log.debug("No free connection at this moment. Lets get new one.");
+		try {
+			conn = new TimedConnection(DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":"
+					+ this.port + "/" + this.database, this.user, this.password));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(conn == null){
+			return null;
+		}
 		conn.lease();
 		if (!conn.isValid()) {
 			conn.close();
@@ -128,12 +136,7 @@ public class ConnectionManager implements Closeable {
 
 			if (i > poolsize) {
 				connections.remove(conn);
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					Log.error("Error while killing connection!");
-					e.printStackTrace();
-				}
+				conn.close();
 				count++;
 			}
 			i++;

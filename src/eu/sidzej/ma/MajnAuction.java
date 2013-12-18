@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import eu.sidzej.ma.db.ConnectionManager;
 import eu.sidzej.ma.db.Database;
 import eu.sidzej.ma.listeners.SignListener;
 import eu.sidzej.ma.ulits.Log;
@@ -39,8 +40,16 @@ public class MajnAuction extends JavaPlugin {
 		
         Log.debug("Debug enabled!"); // log only when enabled in config :)
         
-        db = new Database(this);
-        db.connect(); // connect
+//        db = new Database(this);
+//        db.connect(); // connect
+        try {
+			ConnectionManager tmp = new ConnectionManager( host, port,database, user, pass);
+			tmp.getConnection();
+		} catch (ClassNotFoundException e) {
+			this.disable("Can't use database");
+			e.printStackTrace();
+		}
+        
         
 		commandHandler = new CommandHandler(this);
 		getCommand("ma").setExecutor(commandHandler);
