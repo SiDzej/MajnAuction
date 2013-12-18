@@ -16,7 +16,7 @@ import eu.sidzej.ma.ulits.ParticleEffect;
 
 public class MajnAuction extends JavaPlugin {
 	
-	private String log_prefix;
+	private static String log_prefix;
 	public boolean debugEnabled = false;
 	static final Logger log = Logger.getLogger("Minecraft");
 	private File pluginFolder;
@@ -62,7 +62,7 @@ public class MajnAuction extends JavaPlugin {
        log.log(Level.INFO, String.format("%s %s", log_prefix, message));
    }
 
-   public void logError(String message) {
+   public static void logError(String message) {
        log.log(Level.SEVERE, String.format("%s %s", log_prefix, message));
    }
    
