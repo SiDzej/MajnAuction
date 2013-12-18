@@ -37,7 +37,7 @@ public class MajnAuction extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig(); loadConfig();
 		
-        Log.logDebug("Debug enabled!"); // log only when enabled in config :)
+        Log.debug("Debug enabled!"); // log only when enabled in config :)
         
         db = new Database(this);
         db.connect(); // connect
@@ -60,7 +60,7 @@ public class MajnAuction extends JavaPlugin {
    }
    
    public void disable(String msg){
-	   Log.logError(msg);
+	   Log.error(msg);
 	   Bukkit.getPluginManager().disablePlugin(this);
    }
 
@@ -84,7 +84,7 @@ public class MajnAuction extends JavaPlugin {
            try {
                pluginFolder.mkdir();
            } catch (Exception e) {
-               Log.logError(e.getMessage());
+               Log.error(e.getMessage());
            }
        }
 
@@ -92,7 +92,7 @@ public class MajnAuction extends JavaPlugin {
            try {
                configFile.createNewFile();
            } catch (IOException e) {
-        	   Log.logError(e.getMessage());
+        	   Log.error(e.getMessage());
            }
        }
    }

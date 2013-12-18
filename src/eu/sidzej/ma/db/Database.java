@@ -70,11 +70,11 @@ public class Database {
 		try {
 			if (tmp.next()){
 				MySQL.updateSQL("UPDATE ma_players SET password=\""+password+"\" WHERE nick=\""+p+"\"");
-				Log.logDebug("Chaning "+p+" password");
+				Log.debug("Chaning "+p+" password");
 			}
 			else{
 				MySQL.updateSQL("INSERT INTO ma_players (nick,password) VALUES (\""+p+"\",\""+password+"\")");
-				Log.logDebug("Creating "+p+" account");
+				Log.debug("Creating "+p+" account");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -84,7 +84,7 @@ public class Database {
 	}
 	
 	private void createMajnAuctionDB(){
-		Log.logInfo("Creating MajnAuctionDB structure...");
+		Log.info("Creating MajnAuctionDB structure...");
         Statement s;
 		try {
 			s = c.createStatement();
@@ -94,11 +94,11 @@ public class Database {
 			}
 			String[] queries = CharStreams.toString(new InputStreamReader(plugin.getResource("CREATE.sql"))).split(";");
 	        for (String query : queries) {
-	        	Log.logInfo("Creating DB table");
+	        	Log.info("Creating DB table");
 	            s.execute(query);
 	        }
 		} catch (SQLException | IOException e) {
-			Log.logError(e.getMessage());
+			Log.error(e.getMessage());
 			plugin.disable("Can't create database.");
 		}
 	}
@@ -106,12 +106,12 @@ public class Database {
 	public void connect(){
 		c = MySQL.openConnection();
 		if(c == null){
-			Log.logError("Can't work without database.");
+			Log.error("Can't work without database.");
 			plugin.disable();
 			
 			return;
 		}
-		Log.logInfo("Connected to database.");
+		Log.info("Connected to database.");
 		
 		// check if database is complete
 		Iterator<String> iterator = table_names.iterator();

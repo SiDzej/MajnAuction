@@ -39,7 +39,7 @@ public class CommandHandler implements CommandExecutor{
             sortedCommands.add(s);
         }
         Collections.sort(sortedCommands, Collator.getInstance());
-        Log.logDebug("Commands enabled: " + Joiner.on(", ").join(sortedCommands));
+        Log.debug("Commands enabled: " + Joiner.on(", ").join(sortedCommands));
     }
 
 	@Override

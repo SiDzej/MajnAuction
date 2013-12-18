@@ -33,7 +33,7 @@ public class SignListener implements Listener{
 		Player p = e.getPlayer();
 		if ( p == null)
 			return;
-		Log.logInfo("cedule");
+		Log.info("cedule");
 		Block b = e.getBlock();
 		
 		if (b.getType() != Material.WALL_SIGN) 
@@ -41,11 +41,11 @@ public class SignListener implements Listener{
 		Sign s = (Sign) b.getState().getData();
 		Block attachedBlock = b.getRelative(s.getAttachedFace());
 		
-		Log.logInfo("na bloku");
+		Log.info("na bloku");
 		if (attachedBlock.getType().compareTo(Material.ENDER_CHEST) != 0)
 			return;	
 		
-		Log.logInfo("na enderbedne");
+		Log.info("na enderbedne");
 		String line = e.getLine(0);
 		for (int i = 0; i < labels.length+1; i++){
 			if (i == labels.length){
