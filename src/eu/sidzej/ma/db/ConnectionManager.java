@@ -14,6 +14,8 @@ import eu.sidzej.ma.ulits.Log;
  * @author _CJ_
  * 
  *         Manage connection pool over database
+ *         
+ *         thanks to oliverw92 code on github (hawkEye plugin)
  * 
  */
 public class ConnectionManager implements Closeable {
@@ -97,14 +99,14 @@ public class ConnectionManager implements Closeable {
 	@Override
 	public synchronized void close() {
 		Log.debug("Closing all MySQL connections");
-		final Enumeration<TimedConnection> conns = connections.elements();
-		while (conns.hasMoreElements()) {
-			final Connection conn = conns.nextElement();
+		Iterator<TimedConnection> conns = connections.iterator();
+		while (conns.hasNext()) {
+			final Connection conn = conns.next();
 			connections.remove(conn);
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				Log.error("Can't close connection");
 				e.printStackTrace();
 			}
 		}
@@ -133,7 +135,6 @@ public class ConnectionManager implements Closeable {
 				connections.remove(conn);
 				count++;
 			}
-
 			if (i > poolsize) {
 				connections.remove(conn);
 				conn.close();
