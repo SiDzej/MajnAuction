@@ -3,7 +3,7 @@
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ma_players` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `nick` VARCHAR(16) NOT NULL ,
+  `nick` VARCHAR(16) NOT NULL UNIQUE,
   `password` VARCHAR(32)NOT NULL ,
   PRIMARY KEY (`id`) 
   )
@@ -42,9 +42,9 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 CREATE TABLE IF NOT EXISTS `ma_auction_points` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` char(32) DEFAULT NULL,
-  `x` INT DEFAULT NOT NULL,
-  `y` INT DEFAULT NOT NULL,
-  `z` INT DEFAULT NOT NULL,
+  `x` INT NOT NULL,
+  `y` INT NOT NULL,
+  `z` INT NOT NULL,
   PRIMARY KEY (`id`)
   ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1

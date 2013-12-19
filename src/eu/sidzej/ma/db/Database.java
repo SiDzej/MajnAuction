@@ -55,7 +55,7 @@ public class Database {
 			if (name.trim().isEmpty())
 				name = "Point " + (id + 1);
 
-			s.executeQuery("INSERT INTO ma_auction_points (name,x,y,z) VALUES ('" + name + "','"
+			s.execute("INSERT INTO ma_auction_points (name,x,y,z) VALUES ('" + name + "','"
 					+ l.getBlockX() + "'," + l.getBlockY() + "'," + l.getBlockZ() + "')");
 		} catch (SQLException ex) {
 			Log.error("Unable to add new auction point.");
@@ -64,7 +64,7 @@ public class Database {
 			try {
 				if (s != null)
 					s.close();
-				c.close();
+				c.release();
 			} catch (SQLException e) {
 				Log.error("Unable to close connection.");
 			}
@@ -91,25 +91,19 @@ public class Database {
 		try {
 			c = cm.getConnection();
 			s = c.createStatement();
-
-			ResultSet tmp = s.executeQuery("SELECT id FROM ma_players WHERE nick=\"" + p + "\"");
-			if (tmp.next()) {
-				s.executeQuery("UPDATE ma_players SET password=\"" + password + "\" WHERE nick=\""
-						+ p + "\"");
-				Log.debug("Changing " + p + " password");
-			} else {
-				s.executeQuery("INSERT INTO ma_players (nick,password) VALUES (\"" + p + "\",\""
-						+ password + "\")");
-				Log.debug("Creating " + p + " account");
-			}
+			s.execute("INSERT INTO ma_players (nick,password) VALUES (\"" + p + "\",\""
+					+ password + "\") ON DUPLICATE KEY UPDATE password=\""+password+"\"");
+			Log.debug("Setting " + p + " password");
+			
 		} catch (SQLException e) {
+			Log.error(e.getMessage());
 			Log.error("Unable to set password.");
 			return false;
 		} finally {
 			try {
 				if (s != null)
 					s.close();
-				c.close();
+				c.release();
 			} catch (SQLException e) {
 				Log.error("Unable to close connection.");
 			}
@@ -138,7 +132,7 @@ public class Database {
 			String[] queries = CharStreams.toString(
 					new InputStreamReader(plugin.getResource("CREATE.sql"))).split(";");
 			for (String query : queries) {
-				Log.info("Creating DB table");
+				Log.debug("Creating DB table");
 				s.execute(query);
 			}
 		} catch (SQLException | IOException e) {
@@ -149,7 +143,7 @@ public class Database {
 			try {
 				if (s != null)
 					s.close();
-				c.close();
+				c.release();
 			} catch (SQLException e) {
 				Log.error("Unable to close connection.");
 			}
@@ -178,7 +172,7 @@ public class Database {
 			try {
 				if (s != null)
 					s.close();
-				c.close();
+				c.release();
 			} catch (SQLException e) {
 				Log.error("Unable to close connection.");
 			}
