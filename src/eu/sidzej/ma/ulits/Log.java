@@ -17,7 +17,7 @@ public class Log {
 	}
 
 	public static void debug(String message) {
-		if (true) { // TODO config
+		if (Config.debugEnabled) {
 			log.log(Level.INFO, String.format("%s [DEBUG] %s", log_prefix, message));
 		}
 	}
