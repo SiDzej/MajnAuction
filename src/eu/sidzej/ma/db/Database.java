@@ -87,7 +87,6 @@ public class Database {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-
 		try {
 			c = cm.getConnection();
 			s = c.createStatement();
@@ -108,7 +107,6 @@ public class Database {
 				Log.error("Unable to close connection.");
 			}
 		}
-
 		return true;
 	}
 	

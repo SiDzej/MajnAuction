@@ -102,7 +102,7 @@ public class ConnectionManager implements Closeable {
 		Iterator<TimedConnection> conns = connections.iterator();
 		while (conns.hasNext()) {
 			final Connection conn = conns.next();
-			connections.remove(conn);
+			conns.remove();
 			try {
 				conn.close();
 			} catch (SQLException e) {

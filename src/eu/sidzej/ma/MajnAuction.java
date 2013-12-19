@@ -25,7 +25,7 @@ public class MajnAuction extends JavaPlugin {
 	private File pluginFolder;
 	private File langFile;
 	private File configFile;
-	private CommandHandler commandHandler;
+	public CommandHandler commandHandler;
 	public ParticleEffect particleEffect;
 	public Database db;
 
@@ -42,9 +42,9 @@ public class MajnAuction extends JavaPlugin {
 		name = this.getDescription().getName();
 		version = this.getDescription().getVersion();
 
-		Log.info("Starting " + name + " " + version + "...");
-
 		config = new Config(this);
+		
+		Log.debug("Debug enabled!"); // log only when enabled in config :)
 		
 		// Required - Vault,
 		checkDependencies(getServer().getPluginManager());
@@ -62,7 +62,7 @@ public class MajnAuction extends JavaPlugin {
 		 * createConfig(); getConfig().options().copyDefaults(true); saveConfig(); loadConfig();
 		 */
 
-		Log.debug("Debug enabled!"); // log only when enabled in config :)
+		
 
 
 		getServer().getPluginManager().registerEvents(new SignListener(this), this);
