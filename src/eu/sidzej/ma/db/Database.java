@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -55,8 +54,8 @@ public class Database {
 			if (name.trim().isEmpty())
 				name = "Point " + (id + 1);
 
-			s.execute("INSERT INTO ma_auction_points (name,x,y,z) VALUES ('" + name + "','"
-					+ l.getBlockX() + "'," + l.getBlockY() + "'," + l.getBlockZ() + "')");
+			s.execute("INSERT INTO ma_auction_points (name,x,y,z) VALUES (\"" + name + "\",\""
+					+ l.getBlockX() + "\",\"" + l.getBlockY() + "\",\"" + l.getBlockZ() + "\")");
 		} catch (SQLException ex) {
 			Log.error("Unable to add new auction point.");
 			return false;
@@ -68,7 +67,6 @@ public class Database {
 			} catch (SQLException e) {
 				Log.error("Unable to close connection.");
 			}
-
 		}
 		return true;
 	}

@@ -1,19 +1,15 @@
 package eu.sidzej.ma;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import eu.sidzej.ma.db.ConnectionManager;
 import eu.sidzej.ma.db.Database;
 import eu.sidzej.ma.listeners.SignListener;
 import eu.sidzej.ma.ulits.Config;
@@ -22,9 +18,7 @@ import eu.sidzej.ma.ulits.ParticleEffect;
 
 public class MajnAuction extends JavaPlugin {
 
-	private File pluginFolder;
 	private File langFile;
-	private File configFile;
 	public CommandHandler commandHandler;
 	public ParticleEffect particleEffect;
 	public Database db;
@@ -33,7 +27,7 @@ public class MajnAuction extends JavaPlugin {
 	public String version;
 	public static String name;
 
-	public List<AuctionPoint> pointList;
+	public HashMap<Location, AuctionPoint> pointList;
 
 	public void onEnable() {
 
@@ -70,7 +64,7 @@ public class MajnAuction extends JavaPlugin {
 		commandHandler = new CommandHandler(this);
 		getCommand("ma").setExecutor(commandHandler);
 
-		this.pointList = new ArrayList<AuctionPoint>();
+		this.pointList = new HashMap<Location, AuctionPoint>();
 	}
 
 	public void onDisable() {

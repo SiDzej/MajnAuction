@@ -15,6 +15,7 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.material.Sign;
 
+import eu.sidzej.ma.AuctionPoint;
 import eu.sidzej.ma.MajnAuction;
 import eu.sidzej.ma.ulits.Log;
 import eu.sidzej.ma.ulits.ParticleEffect;
@@ -33,7 +34,6 @@ public class SignListener implements Listener{
 		Player p = e.getPlayer();
 		if ( p == null)
 			return;
-		Log.info("cedule");
 		Block b = e.getBlock();
 		
 		if (b.getType() != Material.WALL_SIGN) 
@@ -41,11 +41,9 @@ public class SignListener implements Listener{
 		Sign s = (Sign) b.getState().getData();
 		Block attachedBlock = b.getRelative(s.getAttachedFace());
 		
-		Log.info("na bloku");
 		if (attachedBlock.getType().compareTo(Material.ENDER_CHEST) != 0)
 			return;	
 		
-		Log.info("na enderbedne");
 		String line = e.getLine(0);
 		for (int i = 0; i < labels.length+1; i++){
 			if (i == labels.length){
@@ -59,7 +57,6 @@ public class SignListener implements Listener{
 		StringBuilder sb = new StringBuilder(event.getLine(line));
         sb.setCharAt(ic - 1, ChatColor.COLOR_CHAR);
         event.setLine(line, sb.toString());*/
-		e.setLine(0, ChatColor.COLOR_CHAR+"4"+plugin.getName());
 		
 		// no permissions
 		if(!p.hasPermission("MajnAuction.placeSign")){
@@ -69,7 +66,12 @@ public class SignListener implements Listener{
 			return;
 		}
 		
+		e.setLine(0, ChatColor.COLOR_CHAR+"4"+plugin.getName());
+		line = e.getLine(2).trim(); // 3rd line
+		plugin.db.saveAuctionPoint(attachedBlock.getLocation(), line, plugin.pointList.size()+1);
 		
+		plugin.pointList.put(attachedBlock.getLocation(),
+				new AuctionPoint(plugin.pointList.size()+1,attachedBlock.getLocation(),line));
 		// TODO jazyk
 		p.sendMessage("Auction point created");		
 		
@@ -86,7 +88,7 @@ public class SignListener implements Listener{
             if(block == null) return;
             if(block.getType() != Material.ENDER_CHEST && block.getType() != Material.WALL_SIGN) return;
             if(event.getPlayer().isSneaking() && event.getPlayer().getItemInHand() != null 
-            		&& event.getPlayer().getItemInHand().getType().equals(Material.AIR))
+            		&& !event.getPlayer().getItemInHand().getType().equals(Material.AIR))
             	return;
             
             if(block.getType() == Material.WALL_SIGN){
@@ -96,6 +98,9 @@ public class SignListener implements Listener{
             // it's a sign
             // 
             Location l = block.getLocation();
+            
+            if(!plugin.pointList.containsKey(l))
+            	return;
             
             ParticleEffect.sendToLocation(ParticleEffect.INSTANT_SPELL, l, 1.0F, 1.0F, 1.0F, 0, 20);
             
