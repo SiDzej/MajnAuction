@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import com.google.common.base.Joiner;
 
 import eu.sidzej.ma.commands.CommandInterface;
+import eu.sidzej.ma.commands.Debug;
 import eu.sidzej.ma.commands.Help;
 import eu.sidzej.ma.commands.Password;
 import eu.sidzej.ma.ulits.Log;
@@ -33,6 +34,7 @@ public class CommandHandler implements CommandExecutor{
         commands.put("password", new Password(plugin));
         commands.put("pass", new Password(plugin));
         commands.put("help", new Help(plugin));
+        commands.put("debug", new Debug(plugin));
         
 
         for (String s : commands.keySet()) {
