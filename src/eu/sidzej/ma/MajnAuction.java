@@ -43,6 +43,7 @@ public class MajnAuction extends JavaPlugin {
 		// Required - Vault,
 		checkDependencies(getServer().getPluginManager());
 		
+		this.pointList = new HashMap<Location, AuctionPoint>(); // must be created before db init
 		try {
 			db = new Database(this);
 		} catch (ClassNotFoundException e) {
@@ -63,8 +64,10 @@ public class MajnAuction extends JavaPlugin {
 
 		commandHandler = new CommandHandler(this);
 		getCommand("ma").setExecutor(commandHandler);
+		
+		
 
-		this.pointList = new HashMap<Location, AuctionPoint>();
+		
 	}
 
 	public void onDisable() {

@@ -18,6 +18,7 @@ import org.bukkit.Location;
 
 import com.google.common.io.CharStreams;
 
+import eu.sidzej.ma.AuctionPoint;
 import eu.sidzej.ma.MajnAuction;
 import eu.sidzej.ma.ulits.Config;
 import eu.sidzej.ma.ulits.Log;
@@ -42,6 +43,9 @@ public class Database {
 				createMajnAuctionDB();
 				break;
 			}
+		
+		// load auction points from DB
+		loadAuctionPoints();
 	}
 
 	public boolean saveAuctionPoint(Location l, String name, int id) {
@@ -54,8 +58,9 @@ public class Database {
 			if (name.trim().isEmpty())
 				name = "Point " + (id + 1);
 
-			s.execute("INSERT INTO ma_auction_points (name,x,y,z) VALUES (\"" + name + "\",\""
-					+ l.getBlockX() + "\",\"" + l.getBlockY() + "\",\"" + l.getBlockZ() + "\")");
+			s.execute("INSERT INTO ma_auction_points (name,x,y,z,world) VALUES (\"" + name + "\",\""
+					+ l.getBlockX() + "\",\"" + l.getBlockY() + "\",\"" + l.getBlockZ() + "\",\"" 
+					+ l.getWorld().getName() + "\")");
 		} catch (SQLException ex) {
 			Log.error("Unable to add new auction point.");
 			return false;
@@ -113,6 +118,37 @@ public class Database {
 	}
 	
 	/// Private part
+	
+	private void loadAuctionPoints(){
+		TimedConnection c = null;
+		Statement s = null;
+		try {
+			c = cm.getConnection();
+			s = c.createStatement();
+			ResultSet set = s.executeQuery("SELECT * FROM ma_auction_points");
+			while(set.next()){
+				Location l = new Location(plugin.getServer().getWorld(set.getString("world")),
+						set.getDouble("x"),set.getDouble("y"),set.getDouble("z"));
+				AuctionPoint point = new AuctionPoint(set.getInt("id"),l,set.getString("name"));
+				plugin.pointList.put(l, point);
+			}
+			
+		} catch (SQLException e) {
+			Log.error(e.getMessage());
+			Log.error("Unable to get points.");
+			plugin.disable();
+			return;
+		} finally {
+			try {
+				if (s != null)
+					s.close();
+				c.release();
+			} catch (SQLException e) {
+				Log.error("Unable to close connection.");
+			}
+		}
+		Log.info("Auction points loaded succefully.");
+	}
 
 	private boolean createMajnAuctionDB() {
 		Log.info("Creating MajnAuctionDB structure...");
