@@ -1,6 +1,7 @@
 package eu.sidzej.ma;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -72,7 +73,8 @@ public class MajnAuction extends JavaPlugin {
 
 	public void onDisable() {
 		db.close();
-		getLogger().info("MajnAuction disabled.");
+		this.saveConfig();
+		Log.info("MajnAuction disabled.");
 	}
 
 	public void disable() {

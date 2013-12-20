@@ -2,7 +2,6 @@ package eu.sidzej.ma.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import eu.sidzej.ma.MajnAuction;
 import eu.sidzej.ma.ulits.Config;
