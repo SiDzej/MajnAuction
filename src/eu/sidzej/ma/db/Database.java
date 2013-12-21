@@ -47,6 +47,10 @@ public class Database {
 		// load auction points from DB
 		loadAuctionPoints();
 	}
+	
+	public static TimedConnection getConnection(){
+		return cm.getConnection();
+	}
 
 	public boolean saveAuctionPoint(Location l, String name, int id) {
 		TimedConnection c = null;
