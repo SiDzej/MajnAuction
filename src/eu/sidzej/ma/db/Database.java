@@ -52,34 +52,6 @@ public class Database {
 		return cm.getConnection();
 	}
 
-	public boolean saveAuctionPoint(Location l, String name, int id) {
-		TimedConnection c = null;
-		Statement s = null;
-		try {
-			c = cm.getConnection();
-			s = c.createStatement();
-
-			if (name.trim().isEmpty())
-				name = "Point " + id;
-
-			s.execute("INSERT INTO ma_auction_points (name,x,y,z,world) VALUES (\"" + name + "\",\""
-					+ l.getBlockX() + "\",\"" + l.getBlockY() + "\",\"" + l.getBlockZ() + "\",\"" 
-					+ l.getWorld().getName() + "\")");
-		} catch (SQLException ex) {
-			Log.error("Unable to add new auction point.");
-			return false;
-		} finally {
-			try {
-				if (s != null)
-					s.close();
-				c.release();
-			} catch (SQLException e) {
-				Log.error("Unable to close connection.");
-			}
-		}
-		return true;
-	}
-
 	public boolean setPassword(String p, String pass) {
 		TimedConnection c = null;
 		Statement s = null;
