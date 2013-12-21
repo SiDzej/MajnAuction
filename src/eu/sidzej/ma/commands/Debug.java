@@ -29,9 +29,11 @@ public class Debug implements CommandInterface{
 			if (sender.hasPermission("majnAuction.password")){
     			if(args[1].equalsIgnoreCase("on")){
     				Config.debugEnabled = true;
+    				plugin.getConfig().set("debug", true);
     			}
     			else if(args[1].equalsIgnoreCase("off")){
     				Config.debugEnabled = false;
+    				plugin.getConfig().set("debug", false);
     			}
     			else {
     	            sender.sendMessage(fullUsage);

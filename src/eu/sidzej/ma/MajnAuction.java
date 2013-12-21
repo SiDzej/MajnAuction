@@ -66,7 +66,6 @@ public class MajnAuction extends JavaPlugin {
 		commandHandler = new CommandHandler(this);
 		getCommand("ma").setExecutor(commandHandler);
 		
-		
 
 		
 	}

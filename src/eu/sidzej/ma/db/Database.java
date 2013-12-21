@@ -56,7 +56,7 @@ public class Database {
 			s = c.createStatement();
 
 			if (name.trim().isEmpty())
-				name = "Point " + (id + 1);
+				name = "Point " + id;
 
 			s.execute("INSERT INTO ma_auction_points (name,x,y,z,world) VALUES (\"" + name + "\",\""
 					+ l.getBlockX() + "\",\"" + l.getBlockY() + "\",\"" + l.getBlockZ() + "\",\"" 
