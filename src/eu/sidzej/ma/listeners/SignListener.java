@@ -18,6 +18,7 @@ import org.bukkit.material.Sign;
 
 import eu.sidzej.ma.AuctionPoint;
 import eu.sidzej.ma.MajnAuction;
+import eu.sidzej.ma.db.AuctionPointDBUtils;
 import eu.sidzej.ma.ulits.Log;
 import eu.sidzej.ma.ulits.ParticleEffect;
 
@@ -69,7 +70,7 @@ public class SignListener implements Listener{
 		
 		e.setLine(0, ChatColor.COLOR_CHAR+"4"+plugin.getName());
 		line = e.getLine(2).trim(); // 3rd line
-		plugin.db.saveAuctionPoint(attachedBlock.getLocation(), line, plugin.pointList.size()+1);
+		AuctionPointDBUtils.saveAuctionPoint(attachedBlock.getLocation(), line, plugin.pointList.size()+1);
 		
 		plugin.pointList.put(attachedBlock.getLocation(),
 				new AuctionPoint(plugin.pointList.size()+1,attachedBlock.getLocation(),line));
@@ -102,7 +103,7 @@ public class SignListener implements Listener{
             
             if(!plugin.pointList.containsKey(l))
             	return;
-         // don't open if there is block above, like vanilla behavior
+            // don't open if there is block above, like vanilla behavior
             if((block.getRelative(BlockFace.UP)).getType().isSolid()) 
             	return;
             
