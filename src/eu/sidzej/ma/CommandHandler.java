@@ -15,6 +15,7 @@ import eu.sidzej.ma.commands.CommandInterface;
 import eu.sidzej.ma.commands.Debug;
 import eu.sidzej.ma.commands.Help;
 import eu.sidzej.ma.commands.Password;
+import eu.sidzej.ma.commands.Rename;
 import eu.sidzej.ma.commands.Tpto;
 import eu.sidzej.ma.ulits.Log;
 
@@ -37,6 +38,7 @@ public class CommandHandler implements CommandExecutor{
         commands.put("help", new Help(plugin));
         commands.put("debug", new Debug(plugin));
         commands.put("tpto", new Tpto(plugin));
+        commands.put("rename", new Rename(plugin));
         
 
         for (String s : commands.keySet()) {

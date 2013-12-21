@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -100,6 +101,9 @@ public class SignListener implements Listener{
             Location l = block.getLocation();
             
             if(!plugin.pointList.containsKey(l))
+            	return;
+         // don't open if there is block above, like vanilla behavior
+            if((block.getRelative(BlockFace.UP)).getType().isSolid()) 
             	return;
             
             ParticleEffect.sendToLocation(ParticleEffect.INSTANT_SPELL, l, 1.0F, 1.0F, 1.0F, 0, 20);
