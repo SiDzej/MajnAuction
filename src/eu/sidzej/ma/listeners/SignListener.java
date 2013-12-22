@@ -21,14 +21,17 @@ import eu.sidzej.ma.MajnAuction;
 import eu.sidzej.ma.db.AuctionPointDBUtils;
 import eu.sidzej.ma.ulits.Log;
 import eu.sidzej.ma.ulits.ParticleEffect;
+import eu.sidzej.ma.ulits.SignSetHelper;
 
 public class SignListener implements Listener{
 	
 	private MajnAuction plugin;
 	private String[] labels = {"[MajnAuction]", "[MA]", "ma"};
+	private String MA_SIGN_TEXT; 
 		
 	public SignListener (MajnAuction plugin){
-		this.plugin = plugin;		
+		this.plugin = plugin;	
+		MA_SIGN_TEXT = ChatColor.COLOR_CHAR+"4"+plugin.getName();
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
@@ -68,7 +71,7 @@ public class SignListener implements Listener{
 			return;
 		}
 		
-		e.setLine(0, ChatColor.COLOR_CHAR+"4"+plugin.getName());
+		e.setLine(0, MA_SIGN_TEXT);
 		line = e.getLine(2).trim(); // 3rd line
 		AuctionPointDBUtils.saveAuctionPoint(attachedBlock.getLocation(), line, plugin.pointList.size()+1);
 		
@@ -103,6 +106,13 @@ public class SignListener implements Listener{
             
             if(!plugin.pointList.containsKey(l))
             	return;
+            
+            if(event.getClickedBlock().getType() == Material.WALL_SIGN){
+            	SignSetHelper tmp = new SignSetHelper(event.getClickedBlock().getState());
+            	tmp.setLine(0, MA_SIGN_TEXT);
+            	tmp.setLine(2, plugin.pointList.get(l).getName());
+            }
+            
             // don't open if there is block above, like vanilla behavior
             if((block.getRelative(BlockFace.UP)).getType().isSolid()) 
             	return;
