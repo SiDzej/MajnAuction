@@ -1,20 +1,21 @@
 package eu.sidzej.ma.ulits;
 
-import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 
 public class SignSetHelper {
 	
-	private SignChangeEvent e;
+	private static Sign b;
 	
-	public SignSetHelper(SignChangeEvent e){
-		this.e = e;
+	public SignSetHelper(Block b){
+		SignSetHelper.b = (Sign)b;
 	}
 	
 	public String getline(int i){
-		return e.getLine(i);
+		return b.getLine(i);
 	}
 	
 	public void setLine(int i, String msg){
-		e.setLine(i, msg);
+		b.setLine(i, msg);
 	}
 }
