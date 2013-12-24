@@ -9,9 +9,10 @@ import eu.sidzej.ma.MajnAuction;
  * 
  * thanks to cnaude - PurpleIRC plugin for bukkit
  */
-public class Help implements CommandInterface {
+@SuppressWarnings("unused")
+public class Help extends CommandBase {
 	private final MajnAuction plugin;
-    private final String usage 	= "[command]";
+	private final String usage 	= "[command]";
     private final String desc 	= "Display help on a specific command or list all commands.";
     private final String name	= "help";
 	
@@ -56,20 +57,5 @@ public class Help implements CommandInterface {
     private String helpStringBuilder(String n, String d, String u) {
         return ChatColor.translateAlternateColorCodes('&', "&b/irc "
                 + n + " &e" + u + " &f- " + d);
-    }
-
-	@Override
-    public String name() {
-        return name;
-    }
-
-    @Override
-    public String desc() {
-        return desc;
-    }
-
-    @Override
-    public String usage() {
-        return usage;
     }
 }

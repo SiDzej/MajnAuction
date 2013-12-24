@@ -6,10 +6,11 @@ import org.bukkit.command.CommandSender;
 import eu.sidzej.ma.MajnAuction;
 import eu.sidzej.ma.ulits.Config;
 
-public class Debug implements CommandInterface{
+public class Debug extends CommandBase{
 	private final MajnAuction plugin;
     private final String usage 	= "[on|off]";
-    private final String desc 	= "Enable or disable debug mode.";
+    @SuppressWarnings("unused")
+	private final String desc 	= "Enable or disable debug mode.";
     private final String name	= "debug";
     private final String fullUsage = bad + ChatColor.AQUA + "/ma " + name + " " + usage;
 	
@@ -44,19 +45,4 @@ public class Debug implements CommandInterface{
             sender.sendMessage(fullUsage);
         }
 	}
-	
-	@Override
-    public String name() {
-        return name;
-    }
-
-    @Override
-    public String desc() {
-        return desc;
-    }
-
-    @Override
-    public String usage() {
-        return usage;
-    }
 }
