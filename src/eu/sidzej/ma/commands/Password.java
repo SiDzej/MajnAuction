@@ -6,11 +6,10 @@ import org.bukkit.entity.Player;
 
 import eu.sidzej.ma.MajnAuction;
 
-public class Password extends CommandBase{
+public class Password implements CommandInterface{
 	private final MajnAuction plugin;
     private final String usage 	= "[password]";
-    @SuppressWarnings("unused")
-	private final String desc 	= "Set or reset password for web-auction access.";
+    private final String desc 	= "Set or reset password for web-auction access.";
     private final String name	= "password";
     private final String fullUsage = bad + ChatColor.AQUA + "/ma " + name + " " + usage;
 	
@@ -34,4 +33,19 @@ public class Password extends CommandBase{
             sender.sendMessage(fullUsage);
         }
 	}
+	
+	@Override
+    public String name() {
+        return name;
+    }
+
+    @Override
+    public String desc() {
+        return desc;
+    }
+
+    @Override
+    public String usage() {
+        return usage;
+    }
 }

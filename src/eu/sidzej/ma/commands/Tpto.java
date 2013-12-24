@@ -9,10 +9,9 @@ import org.bukkit.command.CommandSender;
 import eu.sidzej.ma.AuctionPoint;
 import eu.sidzej.ma.MajnAuction;
 
-public class Tpto extends CommandBase {
+public class Tpto implements CommandInterface {
 	private final MajnAuction plugin;
 	private final String usage = "[id|name]";
-	@SuppressWarnings("unused")
 	private final String desc = "Teleports player to auction point.";
 	private final String name = "tpto";
 	private final String fullUsage = bad + ChatColor.AQUA + "/ma " + name + " " + usage;
@@ -62,5 +61,20 @@ public class Tpto extends CommandBase {
 		} else {
 			sender.sendMessage(fullUsage);
 		}
+	}
+
+	@Override
+	public String name() {
+		return name;
+	}
+
+	@Override
+	public String desc() {
+		return desc;
+	}
+
+	@Override
+	public String usage() {
+		return usage;
 	}
 }

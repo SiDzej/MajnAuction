@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 
 import com.google.common.base.Joiner;
 
-import eu.sidzej.ma.commands.CommandBase;
+import eu.sidzej.ma.commands.CommandInterface;
 import eu.sidzej.ma.commands.Debug;
 import eu.sidzej.ma.commands.Help;
 import eu.sidzej.ma.commands.Password;
@@ -21,7 +21,7 @@ import eu.sidzej.ma.ulits.Log;
 
 public class CommandHandler implements CommandExecutor{
 	
-	public HashMap<String, CommandBase> commands = new HashMap<String, CommandBase>();
+	public HashMap<String, CommandInterface> commands = new HashMap<String, CommandInterface>();
     public ArrayList<String> sortedCommands = new ArrayList<String>();
     private final MajnAuction plugin;
 

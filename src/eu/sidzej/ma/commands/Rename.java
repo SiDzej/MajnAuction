@@ -10,10 +10,9 @@ import eu.sidzej.ma.AuctionPoint;
 import eu.sidzej.ma.MajnAuction;
 import eu.sidzej.ma.db.AuctionPointDBUtils;
 
-public class Rename extends CommandBase {
+public class Rename implements CommandInterface {
 	private final MajnAuction plugin;
 	private final String usage = "[id|name] ([new_name])";
-	@SuppressWarnings("unused")
 	private final String desc = "Rename point given by id or name. If [newname] not given default value will be set.";
 	private final String name = "rename";
 	private final String fullUsage = bad + ChatColor.AQUA + "/ma " + name + " " + usage;
@@ -67,5 +66,20 @@ public class Rename extends CommandBase {
 		} else {
 			sender.sendMessage(fullUsage);
 		}
+	}
+
+	@Override
+	public String name() {
+		return name;
+	}
+
+	@Override
+	public String desc() {
+		return desc;
+	}
+
+	@Override
+	public String usage() {
+		return usage;
 	}
 }
