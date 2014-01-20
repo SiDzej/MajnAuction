@@ -5,7 +5,7 @@ import java.sql.Statement;
 
 import org.bukkit.Location;
 
-import eu.sidzej.ma.ulits.Log;
+import eu.sidzej.ma.utils.Log;
 
 public class AuctionPointDBUtils {
 	

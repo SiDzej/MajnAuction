@@ -1,4 +1,4 @@
-package eu.sidzej.ma.ulits;
+package eu.sidzej.ma.utils;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

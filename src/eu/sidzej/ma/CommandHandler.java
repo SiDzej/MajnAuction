@@ -17,7 +17,7 @@ import eu.sidzej.ma.commands.Help;
 import eu.sidzej.ma.commands.Password;
 import eu.sidzej.ma.commands.Rename;
 import eu.sidzej.ma.commands.Tpto;
-import eu.sidzej.ma.ulits.Log;
+import eu.sidzej.ma.utils.Log;
 
 public class CommandHandler implements CommandExecutor{
 	

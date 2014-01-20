@@ -1,4 +1,4 @@
-package eu.sidzej.ma.ulits;
+package eu.sidzej.ma.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

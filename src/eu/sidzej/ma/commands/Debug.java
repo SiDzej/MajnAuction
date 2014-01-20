@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import eu.sidzej.ma.MajnAuction;
-import eu.sidzej.ma.ulits.Config;
+import eu.sidzej.ma.utils.Config;
 
 public class Debug implements CommandInterface{
 	private final MajnAuction plugin;

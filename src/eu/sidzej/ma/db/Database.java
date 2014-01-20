@@ -20,8 +20,8 @@ import com.google.common.io.CharStreams;
 
 import eu.sidzej.ma.AuctionPoint;
 import eu.sidzej.ma.MajnAuction;
-import eu.sidzej.ma.ulits.Config;
-import eu.sidzej.ma.ulits.Log;
+import eu.sidzej.ma.utils.Config;
+import eu.sidzej.ma.utils.Log;
 
 public class Database {
 

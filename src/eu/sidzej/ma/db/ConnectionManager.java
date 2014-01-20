@@ -8,7 +8,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Vector;
 
-import eu.sidzej.ma.ulits.Log;
+import eu.sidzej.ma.utils.Log;
 
 /**
  * @author _CJ_

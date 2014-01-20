@@ -12,5 +12,5 @@ mysql:
   port: '3306'
   database: 'minecraft'
   user: 'MajnAuction'
-  password: 'wr41th5'
+  password: 'haha'
 

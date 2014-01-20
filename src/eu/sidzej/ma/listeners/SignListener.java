@@ -19,9 +19,9 @@ import org.bukkit.material.Sign;
 import eu.sidzej.ma.AuctionPoint;
 import eu.sidzej.ma.MajnAuction;
 import eu.sidzej.ma.db.AuctionPointDBUtils;
-import eu.sidzej.ma.ulits.Log;
-import eu.sidzej.ma.ulits.ParticleEffect;
-import eu.sidzej.ma.ulits.SignSetHelper;
+import eu.sidzej.ma.utils.Log;
+import eu.sidzej.ma.utils.ParticleEffect;
+import eu.sidzej.ma.utils.SignSetHelper;
 
 public class SignListener implements Listener{
 	

@@ -1,4 +1,4 @@
-package eu.sidzej.ma.ulits;
+package eu.sidzej.ma.utils;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;

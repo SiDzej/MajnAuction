@@ -10,9 +10,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import eu.sidzej.ma.db.Database;
 import eu.sidzej.ma.listeners.SignListener;
-import eu.sidzej.ma.ulits.Config;
-import eu.sidzej.ma.ulits.Log;
-import eu.sidzej.ma.ulits.ParticleEffect;
+import eu.sidzej.ma.utils.Config;
+import eu.sidzej.ma.utils.Log;
+import eu.sidzej.ma.utils.ParticleEffect;
 
 public class MajnAuction extends JavaPlugin {
 

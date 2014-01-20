@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-import eu.sidzej.ma.ulits.Log;
+import eu.sidzej.ma.utils.Log;
 
 public class TimedConnection implements Connection {
 	private long time = 0;
